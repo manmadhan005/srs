@@ -1,34 +1,80 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Home from "./components/Home";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Dashboard from "./components/Dashboard";
 import AddLeave from "./components/AddLeave";
 import ViewLeave from "./components/ViewLeave";
 import UpdateLeave from "./components/UpdateLeave";
-import Dashboard from "./components/Dashboard";
 import About from "./components/About";
 
 import { ThemeProvider } from "./components/ThemeContext";
+import { AuthProvider, useAuth } from "./components/AuthContext";
+
+function ProtectedRoute({ children }) {
+ const { isAuthenticated } = useAuth();
+ return isAuthenticated ? children : <Navigate to="/login" />;
+}
+
 function App() {
  return (
   <ThemeProvider>
-  <Router>
-   <Header />
-   <div style={{ paddingBottom: "60px" }}> {/* space for footer */}
-    <Routes>
-     <Route path="/" element={<Home />} />
-     <Route path="/add" element={<AddLeave />} />
-     <Route path="/view" element={<ViewLeave />} />
-     <Route path="/update/:id" element={<UpdateLeave />} />
-     <Route path="/Dashboard" element={<Dashboard/>}/>
-
-     <Route path="/About" element={<About/>}/>
-
-    </Routes>
-   </div>
-   <Footer />
-  </Router>
+   <AuthProvider>
+    <Router>
+     <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/" element={<Navigate to="/dashboard" />} />
+      <Route path="/dashboard" element={
+       <ProtectedRoute>
+        <Header />
+        <div style={{ paddingBottom: "60px" }}>
+         <Dashboard />
+        </div>
+        <Footer />
+       </ProtectedRoute>
+      } />
+      <Route path="/add" element={
+       <ProtectedRoute>
+        <Header />
+        <div style={{ paddingBottom: "60px" }}>
+         <AddLeave />
+        </div>
+        <Footer />
+       </ProtectedRoute>
+      } />
+      <Route path="/view" element={
+       <ProtectedRoute>
+        <Header />
+        <div style={{ paddingBottom: "60px" }}>
+         <ViewLeave />
+        </div>
+        <Footer />
+       </ProtectedRoute>
+      } />
+      <Route path="/update/:id" element={
+       <ProtectedRoute>
+        <Header />
+        <div style={{ paddingBottom: "60px" }}>
+         <UpdateLeave />
+        </div>
+        <Footer />
+       </ProtectedRoute>
+      } />
+      <Route path="/about" element={
+       <ProtectedRoute>
+        <Header />
+        <div style={{ paddingBottom: "60px" }}>
+         <About />
+        </div>
+        <Footer />
+       </ProtectedRoute>
+      } />
+     </Routes>
+    </Router>
+   </AuthProvider>
   </ThemeProvider>
  );
 }

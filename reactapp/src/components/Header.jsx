@@ -1,26 +1,59 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useTheme } from "../components/ThemeContext";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 import "./Header.css";
 
 const Header = () => {
- const { darkMode, toggleTheme } = useTheme();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
- return (
-  <header className="header">
-   <div className="logo">HR Leave Tracker</div>
-   <nav>
-    <ul className="nav-links">
-     <li><Link to="/">Home</Link></li>
-     <li><Link to="/add">Add Leave</Link></li>
-     <li><Link to="/view">View Leaves</Link></li>
-     <li><Link to="/dashboard">Dashboard</Link></li>
-     <li><Link to="/about">About</Link></li>
-    </ul>
-   </nav>
-  </header>
- );
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
+  return (
+    <header className="header">
+      <div className="header-content">
+        <div className="logo">
+          <div className="logo-icon">🏢</div>
+          <span>HR Leave Tracker</span>
+        </div>
+        
+        <nav className="nav-links">
+          <Link to="/dashboard" className="nav-link">
+            <span className="nav-icon">📊</span>
+            Dashboard
+          </Link>
+          <Link to="/add" className="nav-link">
+            <span className="nav-icon">➕</span>
+            Add Leave
+          </Link>
+          <Link to="/view" className="nav-link">
+            <span className="nav-icon">👁️</span>
+            View Leaves
+          </Link>
+          <Link to="/about" className="nav-link">
+            <span className="nav-icon">ℹ️</span>
+            About
+          </Link>
+        </nav>
+
+        <div className="header-actions">
+          <div className="user-info">
+            <div className="user-avatar">
+              {user?.name?.charAt(0).toUpperCase() || 'U'}
+            </div>
+            <span className="user-name">Welcome, {user?.name || 'User'}</span>
+          </div>
+          <button onClick={handleLogout} className="logout-btn">
+            <span className="logout-icon">🚪</span>
+            Logout
+          </button>
+        </div>
+      </div>
+    </header>
+  );
 };
 
 export default Header;
-
