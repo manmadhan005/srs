@@ -1,0 +1,125 @@
+.view-leave-container {
+ max-width: 900px;
+ margin: 40px auto;
+ padding: 25px;
+ background: #ffffff;
+ border-radius: 15px;
+ box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+ animation: fadeIn 0.8s ease;
+}
+
+.view-leave-container h2 {
+ text-align: center;
+ color: #ff6700;
+ margin-bottom: 20px;
+ font-size: 1.8rem;
+}
+
+table {
+ width: 100%;
+ border-collapse: collapse;
+ animation: slideUp 0.6s ease;
+}
+
+thead {
+ background: #f5924f;
+ color: white;
+}
+
+th,
+td {
+ padding: 12px;
+ border: 1px solid #ddd;
+ text-align: center;
+ font-size: 14px;
+}
+
+tr:nth-child(even) {
+ background: #f9f9f9;
+}
+
+.update-btn,
+.delete-btn {
+ padding: 8px 14px;
+ margin: 3px;
+ border: none;
+ border-radius: 6px;
+ cursor: pointer;
+ font-weight: bold;
+ transition: all 0.3s ease;
+}
+
+.update-btn {
+ background: #bfac76;
+ color: black;
+}
+
+.update-btn:hover {
+ background: #e0a800;
+ transform: scale(1.05);
+}
+
+.delete-btn {
+ background: #dc3545;
+ color: white;
+}
+
+.delete-btn:hover {
+ background: #b52a36;
+ transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes fadeIn {
+ from {
+  opacity: 0;
+  transform: translateY(25px);
+ }
+ to {
+  opacity: 1;
+  transform: translateY(0);
+ }
+}
+
+@keyframes slideUp {
+ from {
+  transform: translateY(30px);
+  opacity: 0;
+ }
+ to {
+  transform: translateY(0);
+  opacity: 1;
+ }
+}
+.refresh-btn {
+ background: #ff6700;
+ color: white;
+ padding: 8px 14px;
+ border: none;
+ border-radius: 6px;
+ cursor: pointer;
+ margin-bottom: 12px;
+ transition: 0.3s;
+}
+
+.refresh-btn:hover {
+ background: #ee5b00;
+}
+
+/* Loader */
+.loader {
+ border: 6px solid #f3f3f3;
+ border-top: 6px solid #ff6700;
+ border-radius: 50%;
+ width: 50px;
+ height: 50px;
+ animation: spin 1s linear infinite;
+ margin: 30px auto;
+}
+
+@keyframes spin {
+ 0% { transform: rotate(0deg); }
+ 100% { transform: rotate(360deg); }
+}
+
+

@@ -1,0 +1,84 @@
+.add-leave-container {
+ max-width: 420px;
+ margin: 40px auto;
+ padding: 30px;
+ background: #ffffff;
+ border-radius: 15px;
+ box-shadow: 0 8px 25px rgba(15, 155, 255, 0.2);
+ text-align: center;
+ animation: fadeInUp 0.8s ease;
+}
+
+.form-title {
+ font-size: 1.8rem;
+ margin-bottom: 20px;
+ color: #ff6700;
+ font-weight: bold;
+ animation: bounceIn 1s ease;
+}
+
+.leave-form {
+ display: flex;
+ flex-direction: column;
+ gap: 15px;
+}
+
+.leave-form input {
+ padding: 12px 14px;
+ border-radius: 8px;
+ border: 1px solid #dcdcdc;
+ font-size: 15px;
+ outline: none;
+ transition: all 0.3s ease;
+}
+
+.leave-form input:focus {
+ border-color: #ff6700;
+ box-shadow: 0 0 8px rgba(15, 155, 255, 0.4);
+ transform: scale(1.02);
+}
+
+.submit-btn {
+ background: #ff6700;
+ color: #fff;
+ border: none;
+ padding: 12px;
+ border-radius: 8px;
+ font-size: 16px;
+ font-weight: bold;
+ cursor: pointer;
+ transition: all 0.3s ease-in-out;
+}
+
+.submit-btn:hover {
+ background: #ee5b00;
+ box-shadow: 0 5px 15px rgba(15, 155, 255, 0.4);
+ transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+ from {
+  opacity: 0;
+  transform: translateY(25px);
+ }
+ to {
+  opacity: 1;
+  transform: translateY(0);
+ }
+}
+
+@keyframes bounceIn {
+ 0% {
+  transform: scale(0.9);
+  opacity: 0;
+ }
+ 60% {
+  transform: scale(1.05);
+  opacity: 1;
+ }
+ 100% {
+  transform: scale(1);
+ }
+}
+

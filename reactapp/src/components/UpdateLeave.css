@@ -1,0 +1,50 @@
+.update-leave-container {
+ max-width: 400px;
+ margin: 30px auto;
+ padding: 20px;
+ border: 2px solid #ff6700;
+ border-radius: 10px;
+ background-color: #f9fcff;
+ box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.update-leave-container h2 {
+ text-align: center;
+ color: #ff6700;
+ margin-bottom: 20px;
+}
+
+.update-leave-container form {
+ display: flex;
+ flex-direction: column;
+ gap: 15px;
+}
+
+.update-leave-container input {
+ padding: 10px;
+ border: 1px solid #ccc;
+ border-radius: 6px;
+ font-size: 14px;
+}
+
+.update-leave-container input:focus {
+ outline: none;
+ border-color: #ff6700;
+ box-shadow: 0px 0px 5px #8d9091;
+}
+
+.update-leave-container button {
+ padding: 12px;
+ border: none;
+ border-radius: 6px;
+ background-color: #ff6700;
+ color: white;
+ font-size: 16px;
+ cursor: pointer;
+ transition: background 0.3s ease;
+}
+
+.update-leave-container button:hover {
+ background-color: #ee5b00;
+}
+
