@@ -1,60 +1,23 @@
+import axios from 'axios';
 
-const API_URL = "https://8080-bdecbfeafecccdbcbeeaefdcadcfebaceabaa.premiumproject.examly.io/leaves";
+const API_URL = 'http://localhost:8082/leaves';
 
-export const getAllLeaves = async () => {
-  try {
-    const res = await fetch(API_URL);
-    if (!res.ok) throw new Error(`Failed to fetch leaves: ${res.status}`);
-    const data = await res.json();
-    return { data };
-  } catch (err) {
-    console.error("Error in getAllLeaves:", err);
-    throw err;
-  }
+export const getAllLeaves = () => {
+  return axios.get(API_URL);
 };
 
-// Add a new leave
-export const addLeave = async (leave) => {
-  try {
-    const res = await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(leave),
-    });
-    if (!res.ok) throw new Error(`Failed to add leave: ${res.status}`);
-    const data = await res.json();
-    return { data };
-  } catch (err) {
-    console.error("Error in addLeave:", err);
-    throw err;
-  }
+export const getLeaveById = (id) => {
+  return axios.get(`${API_URL}/${id}`);
 };
 
-// Update an existing leave
-export const updateLeave = async (id, leave) => {
-  try {
-    const res = await fetch(`${API_URL}/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(leave),
-    });
-    if (!res.ok) throw new Error(`Failed to update leave: ${res.status}`);
-    const data = await res.json();
-    return { data };
-  } catch (err) {
-    console.error("Error in updateLeave:", err);
-    throw err;
-  }
+export const addLeave = (leave) => {
+  return axios.post(API_URL, leave);
 };
 
-// Delete a leave
-export const deleteLeave = async (id) => {
-  try {
-    const res = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-    if (!res.ok) throw new Error(`Failed to delete leave: ${res.status}`);
-    return true;
-  } catch (err) {
-    console.error("Error in deleteLeave:", err);
-    throw err;
-  }
+export const updateLeave = (id, leave) => {
+  return axios.put(`${API_URL}/${id}`, leave);
+};
+
+export const deleteLeave = (id) => {
+  return axios.delete(`${API_URL}/${id}`);
 };

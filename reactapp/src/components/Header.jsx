@@ -1,7 +1,8 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "./AuthContext";
-import "./Header.css";
+import React from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useAuth } from './AuthContext';
+import { FaDoorOpen, FaUserCircle, FaBuilding } from 'react-icons/fa';
+import './Header.css';
 
 const Header = () => {
   const { user, logout } = useAuth();
@@ -13,44 +14,34 @@ const Header = () => {
   };
 
   return (
-    <header className="header">
-      <div className="header-content">
-        <div className="logo">
-          <div className="logo-icon">🏢</div>
-          <span>HR Leave Tracker</span>
-        </div>
-        
-        <nav className="nav-links">
-          <Link to="/dashboard" className="nav-link">
-            <span className="nav-icon">📊</span>
-            Dashboard
-          </Link>
-          <Link to="/add" className="nav-link">
-            <span className="nav-icon">➕</span>
-            Add Leave
-          </Link>
-          <Link to="/view" className="nav-link">
-            <span className="nav-icon">👁️</span>
-            View Leaves
-          </Link>
-          <Link to="/about" className="nav-link">
-            <span className="nav-icon">ℹ️</span>
-            About
-          </Link>
-        </nav>
+    <header className="app-header">
+      <NavLink to="/" className="logo-container">
+        <div className="logo-icon"><FaBuilding /></div>
+        <h1 className="logo-text">LeaveApp</h1>
+      </NavLink>
 
-        <div className="header-actions">
-          <div className="user-info">
-            <div className="user-avatar">
-              {user?.name?.charAt(0).toUpperCase() || 'U'}
-            </div>
-            <span className="user-name">Welcome, {user?.name || 'User'}</span>
-          </div>
-          <button onClick={handleLogout} className="logout-btn">
-            <span className="logout-icon">🚪</span>
-            Logout
-          </button>
-        </div>
+      <nav className="main-nav">
+        <NavLink to="/" end className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Home</NavLink>
+        <NavLink to="/dashboard" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Dashboard</NavLink>
+        <NavLink to="/view" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>My Leaves</NavLink>
+        <NavLink to="/about" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>About</NavLink>
+      </nav>
+
+      <div className="auth-section">
+        {user ? (
+          <>
+            <span style={{ marginRight: '15px' }}>Welcome, {user.name}</span>
+            <button onClick={handleLogout} className="auth-button logout">
+              <FaDoorOpen style={{ marginRight: '5px' }} />
+              Logout
+            </button>
+          </>
+        ) : (
+          <NavLink to="/login" className="auth-button">
+            <FaUserCircle style={{ marginRight: '5px' }} />
+            Login
+          </NavLink>
+        )}
       </div>
     </header>
   );

@@ -30,7 +30,8 @@
   "start": "BROWSER=none PORT=8081 react-scripts start --disable-host-check --host 0.0.0.0",
   "build": "react-scripts build",
   "test": "react-scripts test",
-  "eject": "react-scripts eject"
+  "eject": "react-scripts eject",
+  "server": "json-server --watch db.json --port 8082"
  },
  "eslintConfig": {
   "extends": [
