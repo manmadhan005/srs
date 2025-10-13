@@ -1,0 +1,184 @@
+.view-leaves-container {
+ padding: 40px;
+ max-width: 1200px;
+ margin: 0 auto;
+ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+ position: relative;
+}
+
+.view-leaves-header {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ margin-bottom: 30px;
+}
+
+.view-leaves-title {
+ font-size: 2.5rem;
+ color: #2c3e50;
+ font-weight: 600;
+}
+
+.btn-add-leave {
+ background-color: #3498db;
+ color: white;
+ padding: 12px 20px;
+ border-radius: 6px;
+ text-decoration: none;
+ font-weight: 500;
+ transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-add-leave:hover {
+ background-color: #2980b9;
+ transform: translateY(-2px);
+}
+
+.loading-container {
+ text-align: center;
+ font-size: 1.2rem;
+ color: #7f8c8d;
+ padding: 50px;
+}
+
+.leaves-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+ gap: 25px;
+}
+
+.leave-card {
+ background: #ffffff;
+ border-radius: 8px;
+ box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+ transition: transform 0.3s ease, box-shadow 0.3s ease;
+ display: flex;
+ flex-direction: column;
+}
+
+.leave-card:hover {
+ transform: translateY(-5px);
+ box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.leave-card-header {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 15px 20px;
+ border-bottom: 1px solid #ecf0f1;
+}
+
+.leave-dates {
+ font-weight: 500;
+ color: #34495e;
+}
+
+.status-badge {
+ padding: 6px 12px;
+ border-radius: 15px;
+ font-size: 0.8rem;
+ font-weight: 600;
+ text-transform: uppercase;
+}
+
+.status-pending {
+ background-color: #f39c12;
+ color: white;
+}
+
+.status-approved {
+ background-color: #2ecc71;
+ color: white;
+}
+
+.status-rejected {
+ background-color: #e74c3c;
+ color: white;
+}
+
+.leave-card-body {
+ padding: 20px;
+ flex-grow: 1;
+}
+
+.leave-reason {
+ color: #555;
+ line-height: 1.6;
+ margin: 0;
+}
+
+.leave-card-footer {
+ padding: 15px 20px;
+ background-color: #f9fafb;
+ border-top: 1px solid #ecf0f1;
+ display: flex;
+ justify-content: flex-end;
+ gap: 10px;
+ border-bottom-left-radius: 8px;
+ border-bottom-right-radius: 8px;
+}
+
+.btn-action {
+ padding: 8px 15px;
+ border-radius: 5px;
+ text-decoration: none;
+ font-weight: 500;
+ transition: background-color 0.2s ease;
+}
+
+.btn-edit {
+ background-color: #f1c40f;
+ color: #fff;
+}
+
+.btn-edit:hover {
+ background-color: #f39c12;
+}
+
+.btn-delete {
+ background-color: transparent;
+ color: #e74c3c;
+ border: 1px solid #e74c3c;
+}
+
+.btn-delete:hover {
+ background-color: #e74c3c;
+ color: white;
+}
+
+
+.no-leaves-container {
+ text-align: center;
+ padding: 60px 40px;
+ background-color: #f9f9f9;
+ border-radius: 8px;
+ border: 2px dashed #e0e0e0;
+}
+
+.no-leaves-container h2 {
+ font-size: 1.8rem;
+ color: #555;
+ margin-bottom: 15px;
+}
+
+.no-leaves-container p {
+ color: #777;
+ margin-bottom: 25px;
+}
+
+.blurry-background::before {
+ content: '';
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ background-image: url('../../public/two.png');
+ background-size: cover;
+ background-position: center;
+ background-repeat: no-repeat;
+ filter: blur(10px);
+ z-index: -1;
+}
+

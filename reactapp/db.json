@@ -1,0 +1,26 @@
+{
+ "leaves": [
+  {
+   "id": 1,
+   "startDate": "2025-01-10",
+   "endDate": "2025-01-15",
+   "reason": "Family vacation to the mountains.",
+   "status": "Approved"
+  },
+  {
+   "id": 2,
+   "startDate": "2025-02-20",
+   "endDate": "2025-02-21",
+   "reason": "Attending a tech conference.",
+   "status": "Pending"
+  },
+  {
+   "id": 3,
+   "startDate": "2025-03-05",
+   "endDate": "2025-03-05",
+   "reason": "Personal appointment.",
+   "status": "Rejected"
+  }
+ ]
+}
+
