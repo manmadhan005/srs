@@ -6,27 +6,49 @@ import "./Auth.css";
 import "./Erase.css";
 
 const Login = () => {
- const [form, setForm] = useState({ email: "", password: "", role: "employee" });
+ const [form, setForm] = useState({ username: "", password: "" });
  const [loading, setLoading] = useState(false);
  const [isExiting, setIsExiting] = useState(false);
+ const [error, setError] = useState("");
  const { login } = useAuth();
  const navigate = useNavigate();
 
  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
  const handleSubmit = async (e) => {
- e.preventDefault();
- setLoading(true);
- setIsExiting(true);
+    e.preventDefault();
+    setLoading(true);
+    setError("");
 
- setTimeout(() => {
-  login({
-  email: form.email,
-  name: form.email.split('@')[0],
-  role: form.role
-  });
-  navigate('/');
- }, 1000); // Corresponds to animation duration
+    try {
+        const response = await fetch("https://8080-bdecbfeafecccdbcbeeaefdcadcfebaceabaa.premiumproject.examly.io/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                username: form.username,
+                password: form.password
+            }),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            setIsExiting(true);
+            setTimeout(() => {
+                login({
+                    name: form.username,
+                    role: data.role
+                });
+                navigate("/");
+            }, 1000);
+        } else {
+            const errorText = await response.text();
+            setError(errorText || "Invalid credentials. Please try again.");
+            setLoading(false);
+        }
+    } catch (error) {
+        setError("An error occurred during login. Please try again.");
+        setLoading(false);
+    }
  };
 
  return (
@@ -37,14 +59,15 @@ const Login = () => {
   <div className="auth-form-wrapper">
   <h2 className="auth-title">Welcome Back!</h2>
   <form onSubmit={handleSubmit}>
+    {error && <p className="auth-error">{error}</p>}
    <div className="form-group">
-   <label htmlFor="email">Email Address</label>
+   <label htmlFor="username">Username</label>
    <input
-    type="email"
-    id="email"
-    name="email"
-    placeholder="you@example.com"
-    value={form.email}
+    type="text"
+    id="username"
+    name="username"
+    placeholder="your_username"
+    value={form.username}
     onChange={handleChange}
     required
    />
@@ -61,18 +84,6 @@ const Login = () => {
     required
    />
    </div>
-   <div className="form-group">
-   <label htmlFor="role">Role</label>
-   <select
-    id="role"
-    name="role"
-    value={form.role}
-    onChange={handleChange}
-   >
-    <option value="employee">Employee</option>
-    <option value="admin">Admin</option>
-   </select>
-   </div>
    <button type="submit" className="auth-btn" disabled={loading}>
    {loading ? "Signing In..." : "Sign In"}
    </button>
@@ -86,4 +97,3 @@ const Login = () => {
 };
 
 export default Login;
-

@@ -27,7 +27,7 @@ const Header = () => {
     ) : (
      <NavLink to="/dashboard" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Dashboard</NavLink>
     )}
-    <NavLink to="/view" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>My Leaves</NavLink>
+    <NavLink to="/view-leaves" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>My Leaves</NavLink>
     <NavLink to="/about" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>About</NavLink>
    </nav>
 
@@ -55,4 +55,3 @@ const Header = () => {
 };
 
 export default Header;
-

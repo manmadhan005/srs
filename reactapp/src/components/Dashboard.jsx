@@ -1,45 +1,56 @@
 import React, { useState, useEffect } from 'react';
 import { getAllLeaves } from '../services/leaveService';
 import { FaCalendarAlt, FaCheckCircle, FaExclamationCircle, FaTimesCircle } from 'react-icons/fa';
+import { useAuth } from './AuthContext';
 import './Dashboard.css';
 
 const Dashboard = () => {
+ const { user } = useAuth();
  const [stats, setStats] = useState({
  total: 0,
  approved: 0,
  pending: 0,
  rejected: 0,
  });
- const [upcomingLeaves, setUpcomingLeaves] = useState([]);
+ const [allLeaves, setAllLeaves] = useState([]);
  const [loading, setLoading] = useState(true);
 
  useEffect(() => {
- const fetchLeaves = async () => {
- try {
- const { data } = await getAllLeaves();
- const leaves = data.content || [];
- 
- const total = leaves.length;
- const approved = leaves.filter(leave => leave.status === 'Approved').length;
- const pending = leaves.filter(leave => leave.status === 'Pending').length;
- const rejected = leaves.filter(leave => leave.status === 'Rejected').length;
- 
- setStats({ total, approved, pending, rejected });
+    const fetchAllLeaves = async () => {
+        setLoading(true);
+        try {
+            let leaves = [];
+            let currentPage = 0;
+            let totalPages = 1;
 
- const upcoming = leaves
-  .filter(leave => new Date(leave.startDate) >= new Date() && (leave.status === 'Approved' || leave.status === 'Pending'))
-  .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
-  .slice(0, 5); // Get top 5 upcoming leaves
+            while (currentPage < totalPages) {
+                const { data } = await getAllLeaves(currentPage);
+                if (data.content) {
+                    leaves = leaves.concat(data.content);
+                }
+                totalPages = data.totalPages;
+                currentPage++;
+            }
+            
+            const total = leaves.length;
+            const approved = leaves.filter(leave => leave.status === 'Approved').length;
+            const pending = leaves.filter(leave => leave.status === 'Pending').length;
+            const rejected = leaves.filter(leave => leave.status === 'Rejected').length;
+            
+            setStats({ total, approved, pending, rejected });
 
- setUpcomingLeaves(upcoming);
+            const sortedLeaves = leaves.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
+            
+            setAllLeaves(sortedLeaves);
 
- } catch (error) {
- console.error("Error fetching leaves:", error);
- } finally {
- setLoading(false);
- }
- };
- fetchLeaves();
+        } catch (error) {
+            console.error("Error fetching leaves:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    fetchAllLeaves();
  }, []);
 
  if (loading) {
@@ -61,7 +72,7 @@ const Dashboard = () => {
   <li></li>
  </ul>
  <div className="dashboard-header">
- <h2 className="dashboard-title">Your Leave Dashboard</h2>
+ <h2 className="dashboard-title">{user ? `${user.username}'s Leave Dashboard` : 'Your Leave Dashboard'}</h2>
  <p className="dashboard-subtitle">A summary of your leave activity.</p>
  </div>
 
@@ -96,13 +107,14 @@ const Dashboard = () => {
   </div>
  </div>
  </div>
-{upcomingLeaves.length > 0 && (
+{allLeaves.length > 0 && (
  <div className="upcoming-leaves">
-  <h3 className="upcoming-leaves-title">Upcoming Leaves</h3>
+  <h3 className="upcoming-leaves-title">All Leaves</h3>
   <ul className="leaves-list">
-  {upcomingLeaves.map(leave => (
+  {allLeaves.map(leave => (
   <li key={leave.id} className="leave-item">
   <div className="leave-details">
+   <p className="leave-employee-name">{leave.employeeName}</p>
    <p className="leave-reason">{leave.reason}</p>
    <p className="leave-dates">
    {new Date(leave.startDate).toLocaleDateString()} - {new Date(leave.endDate).toLocaleDateString()}
@@ -121,4 +133,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-

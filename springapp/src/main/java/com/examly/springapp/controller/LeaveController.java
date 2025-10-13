@@ -40,6 +40,7 @@ public class LeaveController {
 
  @PostMapping
  public Leave createLeave(@RequestBody Leave leave) {
+    leave.setStatus("Pending");
   return leaveService.createLeave(leave);
  }
 
