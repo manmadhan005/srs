@@ -31,3 +31,28 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Node
+node_modules/
+.cache/
+build/
+dist/
+
+# IDE / System
+.vscode/
+.idea/
+*.log
+.DS_Store
+Thumbs.db
+# Frontend build & cache
+reactapp/node_modules/
+reactapp/.cache/
+reactapp/build/
+reactapp/dist/
+
+# IDE / system files
+.vscode/
+.idea/
+*.log
+.DS_Store
+Thumbs.db
